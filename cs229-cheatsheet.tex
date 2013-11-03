@@ -117,7 +117,7 @@ $\phi_{k|y = 1} = \frac{\sum_{i = 1}^{m}\sum_{j = 1}^{n_i} 1\{ x_j^i = k \wedge 
 $\phi_{k|y = 0} = \frac{\sum_{i = 1}^{m}\sum_{j = 1}^{n_i} 1\{ x_j^i = k \wedge y^i = 0\}}{\sum_{i = 1}^{m}1\{y^i = 0\} n_i}$\\
 $\phi_y = \frac{\sum_{i = 1}^{m}1\{y^i = 1\}}{m}$
 \end{itemize}
-\subsection*{Support Vector Machines}
+\section*{Support Vector Machines}
 \begin{itemize}
 \item \textbf{Classifier}: $h_{w, b}(x) = g(w^Tx+b) $ where $g(z) = 1$ if $z >0$ and $g(z) = -1$ otherwise. 
 \item \textbf{Functional Margins:} $\hat{\gamma}^i = y^i (w^Tx +b)$, the smallest functional margin in the training set is called: $\hat{\gamma} = min_{i = 1, 2, \dots, m} \hat{\gamma}^i$
@@ -145,6 +145,26 @@ $\xi_i \geq 0, i = 1, \dots, m$\\
 $max_\alpha W(\alpha) = \sum_{i = 1}^{m}\alpha_i - \frac{1}{2}\sum_{i, j = 1}^{m}y^i y^j \alpha_i \alpha_j (x^i)^Tx^j$\\
 s.t $\sum_{i = 1}^{m}\alpha_i y^i = 0$\\
 $C \geq \alpha_i \geq 0 for i = 1, \dots, m$
+\end{itemize}
+\section*{Learning Theory}
+\begin{itemize}
+\item \textbf{Union Bound:} Let $A_1, A_2, \dots, A_k$ be $k$ different events (that may not be independent). Then 
+$$P(A_1 \cup A_2\dots A_k) \leq P(A_1) + P(A_2) + \dots P(A_k)$$
+\item \textbf{Hoeffding inequality} Let $Z_1, Z_2, \dots Z_m$ be $m$ independent and identically distributed random variables drawn from Bernoulli($\phi$) distribution. Let $\hat{\phi}  = \frac{1}{m}\sum_{i = 1}^{m}Z_i$ be the mean of these random variables and let any $\gamma >0$ be fixed. Then 
+$$P(|\phi - \hat{\phi}>\gamma ) \leq 2exp(-2\gamma m)$$
+\item \textbf{Generational Error Bound:} $P(|\epsilon(h_i) - \hat{\epsilon}(h_i)| > \gamma) \leq 2exp(-2\gamma^2m)$
+\item \textbf{Uniform Convergence:} \\
+\begin{align*}
+&P(\neg \exists h \in H. |\epsilon(h_i) - \hat{\epsilon}(h_i)| > \gamma) \\
+&= P(\forall h \in H. |\epsilon(h_i) - \hat{\epsilon}(h_i)| \leq \gamma)\\
+& \geq 1- 2k exp(-2\gamma^2m)
+\end{align*}
+
+\item \textbf{Solving $m, \gamma, \delta$} We just need to use the equation $\delta = 2k exp(-2\gamma^2m)$ to solve for one variable given the other two. 
+\item  Let $|H| = k$, and let any $m, \delta,$ be fixed. Then with probability at least $ 1-\delta$, we have that 
+$$
+\epsilon(\hat{h})  \leq (\min_{h \in H} \epsilon(h)) + 2\sqrt{\frac{1}{2m} log(\frac{2k}{\delta})}
+$$
 \end{itemize}
 % You can even have references
 \rule{0.3\linewidth}{0.25pt}
