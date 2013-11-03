@@ -111,6 +111,11 @@ $\Sigma = \frac{1}{m}\sum_{i = 1}^{m} (x^i - \mu_{y^i})^T (x^i - \mu_{y^i})$
 \subsection*{Naive Bayes}
 \begin{itemize}
 \item \textbf{Naive Assumption:} $p(x_1, x_2, \dots |y) = p(x_1|y)p(x_2|y) \dots. = \prod_{i = 1}^n p(x_i|y)$
+\item \textbf{Laplace Smoothing}  $ \phi_j = \frac{\sum_{i = 1}^{m} 1\{z^i = j\}}{m} \rightarrow \frac{\sum_{i = 1}^{m} 1\{z^i = j +1\}}{m +k}$, where $k$ represent the number of possible outcomes for $z$. 
+\item \textbf{Event Driven Text Classification:} \\
+$\phi_{k|y = 1} = \frac{\sum_{i = 1}^{m}\sum_{j = 1}^{n_i} 1\{ x_j^i = k \wedge y^i = 1\}}{\sum_{i = 1}^{m}1\{y^i = 1\} n_i}$\\
+$\phi_{k|y = 0} = \frac{\sum_{i = 1}^{m}\sum_{j = 1}^{n_i} 1\{ x_j^i = k \wedge y^i = 0\}}{\sum_{i = 1}^{m}1\{y^i = 0\} n_i}$\\
+$\phi_y = \frac{\sum_{i = 1}^{m}1\{y^i = 1\}}{m}$
 \end{itemize}
 % You can even have references
 \rule{0.3\linewidth}{0.25pt}
