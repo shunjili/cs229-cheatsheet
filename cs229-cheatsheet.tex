@@ -1,0 +1,103 @@
+\documentclass[10pt,landscape]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\usepackage{hyperref}
+\everymath{\displaystyle}
+
+
+
+\pdfinfo{
+  /Title (example.pdf)
+  /Creator (TeX)
+  /Producer (pdfTeX 1.40.0)
+  /Author (Seamus)
+  /Subject (Example)
+  /Keywords (pdflatex, latex,pdftex,tex)}
+
+% This sets page margins to .5 inch if using letter paper, and to 1cm
+% if using A4 paper. (This probably isn't strictly necessary.)
+% If using another size paper, use default 1cm margins.
+\ifthenelse{\lengthtest { \paperwidth = 11in}}
+    { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
+    {\ifthenelse{ \lengthtest{ \paperwidth = 297mm}}
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+        {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    }
+
+% Turn off header and footer
+\pagestyle{empty}
+
+% Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\large\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\normalsize\bfseries}}
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+                                {-1ex plus -.5ex minus -.2ex}%
+                                {1ex plus .2ex}%
+                                {\normalfont\small\bfseries}}
+\makeatother
+
+% Define BibTeX command
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.5ex}
+
+%My Environments
+\newtheorem{example}[section]{Example}
+% -----------------------------------------------------------------------
+
+\begin{document}
+\raggedright
+\footnotesize
+\begin{multicols}{3}
+
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{1pt}
+\setlength{\postmulticols}{1pt}
+\setlength{\multicolsep}{1pt}
+\setlength{\columnsep}{2pt}
+
+\begin{center}
+     \Large{\underline{CS229-Cheatsheet}} \\
+\end{center}
+
+\section{Supervised Learning}
+\begin{itemize}
+\item \textbf{Gradient Descent:} to minimize $J(\theta)$, we perform $\theta_j := \theta_j	 - \alpha \frac{\partial}{\partial \theta} J(\theta)$
+\item $\nabla_A AB = B^T$ , $\nabla_{A^T} f(A) = (\nabla_A f(A))^T$, $\nabla_A tr ABA^TC = CAB + C^TAB^T$, $\nabla_A |A| = |A| (A^{-1})^T$
+
+\item \textbf{Normal Equations and Least Squares} $J(\theta) = \frac{1}{2}\sum_{i = 1}^{m}(h_\theta(x^i)- y^i)^2 \rightarrow \nabla_\theta J(\theta)  = \nabla_\theta \frac{1}{2}(X\theta -y)^T(X\theta -y) =  X^TX\theta - X^Ty  = 0 \rightarrow X^TX\theta = X^Ty \rightarrow \theta = (X^TX)^{-1}X^Ty$. 
+\item \textbf{Locally Weighted Regression} Fit $\theta$ to minimize $\sum_{i = 0}^{m	} (y^i-\theta^Tx^i)^2$ where $w^i = e^{-\frac{(x^i-x)^2}{2\tau^2}}$
+\item \textbf{Logistic Regression:} $h_\theta(x) = g(\theta^T x) = \frac{1}{1+ e^{-\theta^Tx}}$, $g(z) = \frac{1}{1+e^{-z}}$, $g'(z) = \frac{d}{dz}\frac{1}{1+e^{-z}} = g(z)(1-g(z))$, $p(y |x; \theta) = (h_\theta(x))^y(1-h_\theta(x))^{1-y}$. $l(\theta) = log L(\theta) = \sum_{i = 1}^{m} y^i logh(x^i) + (1-y^i) log(1-h(x^i))$, $\frac{\partial}{\partial \theta_j} l(\theta) = (y- h_\theta(x))x_j$
+\item \textbf{Perceptron Learning Algorithm} $\theta_j := \theta_j + \alpha (y^i - h_\theta(x^i))x_j^i$
+\item \textbf{Newton's Method: } $\theta := \theta - \frac{f(\theta)}{f'(\theta)}$, we want the first derivative to be zero, then $\theta := \theta - \frac{l'(\theta)}{l''(\theta)}$, if $\theta$ is a vector then $\theta: = \theta - H^{-1}\nabla_\theta l(\theta)$ where $H_{ij} = \frac{\partial ^2 l(\theta}{\partial \theta_i \partial \theta_j}$
+\item \textbf{Exponential Family}  $p(y; \eta)  =b(y)exp(\eta^TT(y) - a(\eta))$
+\item \textbf{General Linear Model Assumptions:} 1. $y|x; \eta \sim ExponentialFamily(\eta)$. 2. Given $x$ our goal is to predict the expected value of $T(y)$ which is usually just $y$, so we would like our hypothesis to satisfy $h(x) = E(y|x)$. 3. The natural parameter $\eta$ and inputs $x$ are related linearly. $\eta = \theta^Tx$. 
+\end{itemize}
+
+% You can even have references
+\rule{0.3\linewidth}{0.25pt}
+\scriptsize
+\bibliographystyle{abstract}
+\bibliography{refFile}
+\end{multicols}
+\end{document}
