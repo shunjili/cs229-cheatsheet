@@ -165,7 +165,27 @@ $$P(|\phi - \hat{\phi}>\gamma ) \leq 2exp(-2\gamma m)$$
 $$
 \epsilon(\hat{h})  \leq (\min_{h \in H} \epsilon(h)) + 2\sqrt{\frac{1}{2m} log(\frac{2k}{\delta})}
 $$
+\item Let $H$ be given, and let $d = VC(H)$, then with probability at least $1-\delta$, we have that for all $h \in H$, \\
+$$
+|\epsilon(h) - \hat{\epsilon}(h)| \leq O(\sqrt{\frac{d}{m}log\frac{m}{d}+ \frac{1}{m}log\frac{1}{d}})
+$$
+we also have 
+$$
+|\hat{\epsilon}(h) - \epsilon(h^*)| \leq O(\sqrt{\frac{d}{m}log\frac{m}{d}+ \frac{1}{m}log\frac{1}{d}})
+$$
 \end{itemize}
+\section*{Regularization and Model Selection}
+\subsection{Cross Validation}
+\begin{itemize}
+\item \textbf{Simple Cross Validation:} 1. Randomly split $S$ into $S_{train}$ (say 70 percent of the data and $S_{cv}$. Here, $S_{cv}$ is called the hold-out cross validation set. 2. Train each model $M_i$ on $S_{train}$ only, to get some hypothesis $h_i$. 3. Select and output the hypothesis $h_i$ that had the smallest error $\hat{\epsilon}(h_i)$ on the hold out crosss validation set. 
+\item \textbf{$k$-fold cross validation}  1. Randomly split $S$ into $ k$ disjoint subsets of $m/k$ training examples each. Let’s call these subsets $S_1, . . . , S_k$. 3. For each model $M_i$, we evaluate it as follows: For $j = 1, . . . , k$
+Train the model $M_i$ on $S_1 \cup··· \cup S_{j−1} \cup S_{j+1} \cup···S_k $(i.e., train on all the data except $S_j$) to get some hypothesis $h_{ij}$.
+Test the hypothesis $h_{ij}$ on $S_j$ , to get $\epsilon_{S_j} (h_{ij} )$.
+The estimated generalization error of model $M_i$ is then calculated
+as the average of the $\epsilon_{S_j} (h_{ij})$’s (averaged over $j$).
+\end{itemize}
+\subsection*{Feature Selection}
+
 % You can even have references
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
