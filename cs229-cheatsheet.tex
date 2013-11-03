@@ -185,7 +185,20 @@ The estimated generalization error of model $M_i$ is then calculated
 as the average of the $\epsilon_{S_j} (h_{ij})$’s (averaged over $j$).
 \end{itemize}
 \subsection*{Feature Selection}
-
+\begin{itemize}
+\item \textbf{Forward Search:}1. Initialize$ F = \emptyset$.
+2. Repeat 
+(a)For $i=1,...,n$if $i  \notin F$,let $F_i =F \cup\{ i\}$,and use some version of cross validation to evaluate features $F_i$. (I.e., train your learning algorithm using only the features in $F_i$, and estimate its generalization error.)
+(b) Set $F$ to be the best feature subset found on step (a).
+3. Select and output the best feature subset that was evaluated during the entire search procedure.
+\end{itemize}
+\subsection*{Bayesian Statistics}
+\begin{itemize}
+\item $P(\theta |S) = \frac{P(S|\theta) p(\theta)}{p(S)} = \frac{(\prod_{i = 1}^{m} p(y^i|x^i, \theta))p(\theta)}{\int_\theta(\prod_{i = 1}^{m} p(y^i|x^i, \theta) p(\theta))d\theta}$
+\item $P(y|x, S)= \int_\theta p(y|x, \theta)p(\theta |S)d\theta$
+\item $E(y|x, S) = \int_y yp(y|x, S) dy$. 
+\item $\theta_{MAP} = arg \max_{\theta}$
+\end{itemize}
 % You can even have references
 \rule{0.3\linewidth}{0.25pt}
 \scriptsize
